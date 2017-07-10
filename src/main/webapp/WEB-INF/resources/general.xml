@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    
+    <definition name="common" template="/WEB-INF/views/basicTemplate.jsp">
+        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+        <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+    </definition>
+
+
+    <definition name="index" extends="common">
+        <put-attribute name="title" value="Locations" />
+        <put-attribute name="current" value="index" />
+        <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+            
+    </definition>
+    <definition name="test" template="/WEB-INF/views/test.jsp" >          
+              
+    </definition>
+    <definition name="register" extends="common">
+        <put-attribute name="title" value="Registration" />
+        <put-attribute name="current" value="register" />
+        <put-attribute name="body" value="/WEB-INF/views/register.jsp" />        
+    </definition>
+     <definition name="signin" extends="common">
+        <put-attribute name="title" value="signin" />
+        <put-attribute name="current" value="signin" />
+        <put-attribute name="body" value="/WEB-INF/views/signin.jsp" />        
+    </definition>
+        
+        
+</tiles-definitions>

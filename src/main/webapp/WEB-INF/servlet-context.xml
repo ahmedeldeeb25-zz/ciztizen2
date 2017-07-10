@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <!-- DispatcherServlet Context: defines this servlet's request-processing 
+    infrastructure -->
+
+    <!-- Enables the Spring MVC @Controller programming model -->
+    <mvc:annotation-driven />
+    <context:component-scan base-package="Controller" />
+    
+    <context:component-scan base-package="model"></context:component-scan>
+    <context:component-scan base-package="dao"></context:component-scan>
+    <context:component-scan base-package="service"></context:component-scan>
+    
+    <context:property-placeholder location="WEB-INF/application.properties"/>
+
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+    up static resources in the ${webappRoot}/resources directory -->
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/"
+                   cache-period="31556926"/>
+	 
+
+    <!--- apche tiles Configuration -->
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/resources/general.xml</value>
+          
+            </list>
+        </property>
+    </bean>
+    <!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+    in the /WEB-INF/views directory -->
+    <bean id="viewResolver" 
+          class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+    </bean>
+    <!--    <bean id="viewResolver"
+                class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>-->
+    
+    <!-- ==== MessageSource Configuration === -->
+    <bean id="messageSource"
+    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        
+        <property name="basename" value="/WEB-INF/studentmessages" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
+    <!-- dataSource Configuration for Hibernate  -->
+    <bean id="dataSource" 
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" /> 
+        <property name="url" value="${jdbc.url}" /> 
+        <property name="username" value="${jdbc.username}" /> 
+        <property name="password" value="${jdbc.password}" /> 
+    </bean>
+
+
+    <!-- Hibernate 5 SessionFactory Bean definition -->
+    <bean id="hibernate4AnnotatedSessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan">
+            <list>
+                <value>model</value>  
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+                </prop>
+                <prop key="hibernate.show_sql">true</prop>
+                 
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+    <!--- //////////////////////////////////////////////////////-->
+    <!-- //////////DAO & Service Confiuration//// //////////////-->
+    <!--- //////////////////////////////////////////////////////-->
+    <!-- ============ Person ============ -->
+    <bean id="personDAO" class="dao.PersonDAOImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    <bean id="personService" class="service.PersonServiceImpl">
+        <property name="personDAO" ref="personDAO"></property>
+    </bean>
+    <!-- ============ Profile ============ -->
+    <bean id="ProfileDAO" class="dao.ProfileDAOImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    <bean id="ProfileService" class="service.ProfileServiceImpl">
+        <property name="ProfileDAO" ref="ProfileDAO"></property>
+    </bean>
+    <!-- ============ Category ============-->
+    <bean id="CategoryDAO" class="dao.CategoryDAOImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    <bean id="CategoryService" class="service.CategoryServiceImpl">
+        <property name="CategoryDAO" ref="CategoryDAO"></property>
+    </bean>
+    <!-- ============ Posts ============ -->
+    <bean id="PostDAO" class="dao.PostDAOImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    <bean id="PostService" class="service.PostServiceImpl">
+        <property name="PostDAO" ref="PostDAO"></property>
+    </bean>
+
+    <!-- ================= -->	
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+	
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+
+</beans>
