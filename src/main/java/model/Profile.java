@@ -5,6 +5,11 @@
  */
 package model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -27,12 +32,17 @@ import javax.validation.constraints.*;
  */
 @Entity
 @Table(name="Profile")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder(alphabetic = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","posts","Picture","comments"})
+
 public class Profile implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Size(min = 3,max = 20)
+    @JsonProperty("FirstName") // Change it's name in JSON
     private String First_name;
     @NotNull
     private String Last_name;
@@ -59,7 +69,22 @@ public class Profile implements Serializable{
     @OneToMany(mappedBy = "user_id")
     private Collection<Comment> comments = new ArrayList<Comment>();
 
-     
+    
+     public String getFirst_name() {
+        return First_name;
+    }
+
+    public void setFirst_name(String First_name) {
+        this.First_name = First_name;
+    }
+
+    public String getLast_name() {
+        return Last_name;
+    }
+
+    public void setLast_name(String Last_name) {
+        this.Last_name = Last_name;
+    }
     
 
     public Collection<Comment> getComments() {
@@ -104,21 +129,7 @@ public class Profile implements Serializable{
         this.id = id;
     }
 
-    public String getFirst_name() {
-        return First_name;
-    }
-
-    public void setFirst_name(String First_name) {
-        this.First_name = First_name;
-    }
-
-    public String getLast_name() {
-        return Last_name;
-    }
-
-    public void setLast_name(String Last_name) {
-        this.Last_name = Last_name;
-    }
+   
 
     public String getAddress() {
         return Address;

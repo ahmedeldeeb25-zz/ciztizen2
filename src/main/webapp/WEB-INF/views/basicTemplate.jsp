@@ -9,11 +9,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="tilesx" uri="http://tiles.apache.org/tags-tiles-extras" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@page import="model.Sub_category"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Category"%>
 
-            
+
 <!-- header ============================================ -->
 
 <!DOCTYPE html>
@@ -54,17 +55,32 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="${current == 'index' ? 'active':''}"><a href="index.html">home</a></li>
                         <li><a href="#">blog</a></li>
-                        <li><a href="contact.html">contact</a></li>
-                        <li><a href="signin.html">sign in</a></li>
-                        <li><a href="register.html">register</a></li>
+                        <li><a href="#">contact</a></li>
+                            <security:authorize access="!isAuthenticated()">
+                            <li><a href="signin.html">sign in</a></li>
+                            <li><a href="register.html">register</a></li>
+                            </security:authorize>
+
+                        <security:authorize access="isAuthenticated()">
+                            <li>
+                                <form method="post" action="logout">
+                                    <a >Logout</a>
+                                    <input type="hidden"
+                                           name="${_csrf.parameterName}"
+                                           value="${_csrf.token}"/>
+                                </form>
+                            </li>
+                        </security:authorize>
+
+
                         <button class="btn btn-default add-list"><a href="addlist.html" target="_blank"><i class="fa fa-plus"></i>add listing</a></button>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
 
-<!-- body -->
-            <tiles:insertAttribute name="body" />
+        <!-- body -->
+        <tiles:insertAttribute name="body" />
 
-<!-- Footer -->
-            <tiles:insertAttribute name="footer"/> 
+        <!-- Footer -->
+        <tiles:insertAttribute name="footer"/> 

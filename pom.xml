@@ -10,7 +10,7 @@
     <name>Citizen2</name>
 
     <properties>
-        
+       
         <java-version>1.6</java-version>
         <org.springframework-version>4.0.3.RELEASE</org.springframework-version>
         <org.aspectj-version>1.7.4</org.aspectj-version>
@@ -18,18 +18,16 @@
         <hibernate.version>4.3.5.Final</hibernate.version>
         <apachetiles.version>3.0.5</apachetiles.version>
         <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
-         <javax.validation.version>1.1.0.Final</javax.validation.version>
-        
+        <javax.validation.version>1.1.0.Final</javax.validation.version>       
         <spring.version>4.3.6.RELEASE</spring.version>
         <hibernate.version>5.0.5.Final</hibernate.version>
         <mysql.version>5.1.31</mysql.version>
-        <joda-time.version>2.3</joda-time.version>
-        
+        <joda-time.version>2.3</joda-time.version>       
         <mail.version>1.4.1</mail.version>
-        <log4j.version>1.2.17</log4j.version>
-        
+        <log4j.version>1.2.17</log4j.version>       
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
     </properties>
 
     <dependencies>
@@ -122,6 +120,24 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.8.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.8.9</version>
+        </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
@@ -142,11 +158,11 @@
             <artifactId>jackson-jaxrs</artifactId>
             <version>1.9.10</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
-        </dependency>
+        </dependency>-->
         
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -165,7 +181,8 @@
             <version>${org.slf4j-version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
+        
+        <!--        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.15</version>
@@ -188,17 +205,16 @@
                 </exclusion>
             </exclusions>
             <scope>runtime</scope>
-        </dependency>
-        
-        
-         <dependency>
+        </dependency>-->
+                
+        <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
         </dependency>
         
         <!-- Apche Tiles -->
-         <dependency>
+        <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-core</artifactId>
             <version>${apachetiles.version}</version>
@@ -219,7 +235,7 @@
             <version>${apachetiles.version}</version>
         </dependency>
         
-         <!-- jsr303 validation dependencies-->
+        <!-- jsr303 validation dependencies-->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -230,6 +246,25 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator.version}</version>
+        </dependency>
+        
+        <!-- ... other dependency elements ... -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>4.2.3.RELEASE</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>4.2.3.RELEASE</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>4.2.1.RELEASE</version>
         </dependency>
         
     </dependencies>

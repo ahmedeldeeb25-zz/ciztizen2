@@ -36,8 +36,6 @@
         });
     });
 </script>
-
-
 <!-- PANNER SECTION ================================================= -->
 
 <section class="panner">
@@ -97,13 +95,13 @@
                         <div class="icon">
                             <i class="fa fa-paint-brush"></i>
                         </div>
-                        <h3><a href="#">arts & humanities</a></h3>
+                        <h3><a href="#"><%= cat.getName() %></a></h3>
                     </div>
 
                     <ul>
                         <% for (Sub_category sub : cat.getSub()) {%> 
                         <li id="catFilter" value="<%= sub.getId()%>">
-                            <a ><%= sub.getName()%></a>
+                            <a><%= sub.getName()%></a>
                             <figure class="count"><%= sub.getPosts().size()%></fugure>
                         </li>
 

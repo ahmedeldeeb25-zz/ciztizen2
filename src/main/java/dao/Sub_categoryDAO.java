@@ -5,10 +5,13 @@
  */
 package dao;
 
+import model.Sub_category;
+
 /**
  *
  * @author AhmedEldeeb
  */
 public interface Sub_categoryDAO {
     
+    public Sub_category getSubById(int id);
 }

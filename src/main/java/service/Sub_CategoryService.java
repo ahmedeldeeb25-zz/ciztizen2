@@ -3,19 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package service;
 
-import model.Profile;
+import model.Sub_category;
 
 /**
  *
  * @author AhmedEldeeb
  */
-public interface ProfileDAO {
-    
-    public void addProfile(Profile profile);
-    public void updateProfile(Profile profile);
-    public Profile getProfileById(int id);
-
-   
+public interface Sub_CategoryService {
+    public Sub_category getSubById(int id);
 }

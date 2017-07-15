@@ -44,10 +44,10 @@ public class ProfileDAOImpl implements ProfileDAO {
 
     @Override
     public Profile getProfileById(int id) {
-        Session session = this.sessionFactory.getCurrentSession();		
-		Profile p = (Profile) session.load(Profile.class, new Integer(id));
-		logger.info("Profile loaded successfully, Profile details="+p);
-		return p;
+        Session session = this.sessionFactory.getCurrentSession();
+        Profile p = (Profile) session.load(Profile.class, new Integer(id));
+        logger.info("Profile loaded successfully, Profile details=" + p);
+        return p;
     }
 
 }

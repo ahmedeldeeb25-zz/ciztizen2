@@ -16,19 +16,23 @@
         <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
             
     </definition>
-    <definition name="test" template="/WEB-INF/views/test.jsp" >          
+          
               
-    </definition>
+   
     <definition name="register" extends="common">
         <put-attribute name="title" value="Registration" />
         <put-attribute name="current" value="register" />
         <put-attribute name="body" value="/WEB-INF/views/register.jsp" />        
     </definition>
-     <definition name="signin" extends="common">
+    <definition name="signin" extends="common">
         <put-attribute name="title" value="signin" />
         <put-attribute name="current" value="signin" />
         <put-attribute name="body" value="/WEB-INF/views/signin.jsp" />        
     </definition>
-        
+    
+    
+    <!-- Ajax Requests -->
+    <definition name="test" template="/WEB-INF/views/test.jsp" >   
+    </definition>   
         
 </tiles-definitions>

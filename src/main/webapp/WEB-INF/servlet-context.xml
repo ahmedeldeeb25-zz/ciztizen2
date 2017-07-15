@@ -10,12 +10,11 @@
 
     <!-- DispatcherServlet Context: defines this servlet's request-processing 
     infrastructure -->
-
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven />
-    <context:component-scan base-package="Controller" />
-    
+    <context:component-scan base-package="Controller" />   
     <context:component-scan base-package="model"></context:component-scan>
+    <context:component-scan base-package="Rest"></context:component-scan>
     <context:component-scan base-package="dao"></context:component-scan>
     <context:component-scan base-package="service"></context:component-scan>
     
@@ -25,7 +24,9 @@
     up static resources in the ${webappRoot}/resources directory -->
     <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/"
                    cache-period="31556926"/>
-	 
+	
+    <!-- Spring Security Configuration -->
+<!--    <import resource="security.xml" />-->
 
     <!--- apche tiles Configuration -->
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -51,7 +52,7 @@
     
     <!-- ==== MessageSource Configuration === -->
     <bean id="messageSource"
-    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         
         <property name="basename" value="/WEB-INF/studentmessages" />
         <property name="defaultEncoding" value="UTF-8" />
@@ -110,6 +111,14 @@
     <bean id="CategoryService" class="service.CategoryServiceImpl">
         <property name="CategoryDAO" ref="CategoryDAO"></property>
     </bean>
+    <!-- ============ SubCategory ============ -->
+    <bean id="subCategoryDAO" class="dao.Sub_categoryDAOImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </bean>
+    <bean id="SubCategoryService" class="service.Sub_CategoryServiceImpl">
+        <property name="subCategoryDAO" ref="subCategoryDAO"></property>
+    </bean>
+
     <!-- ============ Posts ============ -->
     <bean id="PostDAO" class="dao.PostDAOImpl">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
@@ -117,7 +126,7 @@
     <bean id="PostService" class="service.PostServiceImpl">
         <property name="PostDAO" ref="PostDAO"></property>
     </bean>
-
+    
     <!-- ================= -->	
     <tx:annotation-driven transaction-manager="transactionManager"/>
 	
